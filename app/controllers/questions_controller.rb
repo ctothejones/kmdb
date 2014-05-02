@@ -12,7 +12,7 @@ class QuestionsController < ApplicationController
   def question_3
     # How many movies does the director of the first movie have on the list?
 
-    @number_of_movies_directed_by_first_movie_director = Movie.where ({ :director_id => Director.find_by({ :id => Movie.first }) })
+    @number_of_movies_directed_by_first_movie_director = Movie.where({ :director_id => Movie.first.director_id}).count
   end
 
   def question_4
