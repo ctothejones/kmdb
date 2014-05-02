@@ -1,26 +1,18 @@
 class QuestionsController < ApplicationController
   def question_1
     # How many movies are in the database?
-
-    # Your Ruby goes here.
-
     @number_of_movies = Movie.count
   end
 
   def question_2
     # In what year was the oldest movie on the list released?
-
-    # Your Ruby goes here.
-
-    # @year_of_oldest_movie = ???
+    @year_of_oldest_movie = Movie.order("year DESC").last.year
   end
 
   def question_3
     # How many movies does the director of the first movie have on the list?
 
-    # Your Ruby goes here.
-
-    # @number_of_movies_directed_by_first_movie_director = ???
+    @number_of_movies_directed_by_first_movie_director = Movie.where ({ :director_id => Director.find_by({ :id => Movie.first }) })
   end
 
   def question_4
