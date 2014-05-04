@@ -12,7 +12,9 @@ class QuestionsController < ApplicationController
   def question_3
     # How many movies does the director of the first movie have on the list?
 
-    @number_of_movies_directed_by_first_movie_director = Movie.where({ :director_id => Movie.first.director_id }).count
+    m = Movie.where({ :director_id => Movie.first.director_id })
+
+    @number_of_movies_directed_by_first_movie_director = m.count
   end
 
   def question_4
@@ -32,9 +34,11 @@ class QuestionsController < ApplicationController
   def question_5
     # What is the most recent movie on the list that the first actor appeared in?
 
-    # Your Ruby goes here.
-    # You'll probably have to use both ActiveRecord query methods as well as some plain old Ruby logic.
+    roles_for_actor = Role.where({ :actor_id => Actor.first.id })
+    only_ids = roles_for_actor.select("movie_id")
+    list_of_movies = Movie.where({ :id => only_ids })
+    movies_ordered_by_year_desc = list_of_movies.order("year DESC")
 
-    # @most_recent_movie_for_first_actor = ???
+    @most_recent_movie_for_first_actor = movies_ordered_by_year_desc.first.title
   end
 end
